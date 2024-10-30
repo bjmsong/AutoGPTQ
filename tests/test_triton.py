@@ -5,10 +5,12 @@ import torch
 import torch.utils.benchmark as benchmark
 from transformers import AutoTokenizer
 
-from auto_gptq import AutoGPTQForCausalLM
+import sys
+sys.path.insert(0, "/root/autodl-tmp/AutoGPTQ")
+# change folder name from [auto_gptq] to [auto_gptq_local]
+from auto_gptq_local import AutoGPTQForCausalLM
 
-
-MODEL_ID = "TheBloke/Llama-7B-GPTQ"
+MODEL_ID = "/root/autodl-tmp/model_dir"  # "TheBloke/Llama-7B-GPTQ"
 DATASET_ID = "timdettmers/openassistant-guanaco"
 LEARNING_RATE = 3e-5
 MAX_SEQ_LEN = 10
@@ -102,3 +104,6 @@ class TestTriton(unittest.TestCase):
         _, measure_tritonv2 = benchmark_forward(qlinear_test, test_data, desc="Triton-v2", verbose=True)
 
         self.assertTrue(measure_tritonv2.mean < measure_triton.mean)
+
+if __name__ == '__main__':
+    unittest.main()
