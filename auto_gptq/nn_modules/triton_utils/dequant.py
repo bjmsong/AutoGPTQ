@@ -5,8 +5,8 @@ import triton
 import triton.language as tl
 from torch.cuda.amp import custom_bwd, custom_fwd
 
-import os
-os.environ["TRITON_INTERPRET"]= "1"
+# import os
+# os.environ["TRITON_INTERPRET"]= "1"
 
 def make_dequant_configs(block_sizes, num_warps):
     configs = []
